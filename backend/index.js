@@ -17,14 +17,14 @@ const app = express();
 const port = process.env.PORT || 3001; // Use the environment variable PORT if available, otherwise default to 3001
 app.use(express.json({ limit: '50mb' }));
 
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200,
-};
+// const corsOptions = {
+//     origin: 'http://localhost:3000',
+//     optionsSuccessStatus: 200,
+// };
 
 
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use('/', userRoute);
 app.use('/admin', adminRoute);
@@ -42,6 +42,8 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
+console.log("Ariya");
+    console.log(userData);
     socket.on('addUser', (userData) => {
         socket.join(userData);
         socket.emit('connected');
